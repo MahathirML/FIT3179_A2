@@ -10,19 +10,6 @@
   "config": {
     "background": null
   },
-  "params": [
-    {
-      "name": "distanceFilter",
-      "value": 100,
-      "bind": {
-        "input": "range",
-        "min": 0,
-        "max": 25,
-        "step": 1,
-        "name": "Distance from City Center (km): "
-      }
-    }
-  ],
   "layer": [
     {
       "mark": {"type": "rect", "fill": "lightblue", "stroke": null},
@@ -47,11 +34,19 @@
       },
       "transform": [
         {
-          "calculate": "6371 * acos(sin(-37.8183 * 3.14159 / 180) * sin(datum.Stop_lat * 3.14159 / 180) + cos(-37.8183 * 3.14159 / 180) * cos(datum.Stop_lat * 3.14159 / 180) * cos((datum.Stop_long - 144.9671) * 3.14159 / 180))",
-          "as": "distanceFromCity"
+          "lookup": "Stop_lat",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/js/victoria_map.json",
+              "format": {"type": "topojson", "feature": "SA4_2021_AUST_GDA2020"}
+            },
+            "key": "geometry.coordinates[1]",
+            "fields": ["properties.SA4_NAME21"]
+          }
         },
         {
-          "filter": "datum.distanceFromCity <= distanceFilter"
+          "calculate": "datum.Regional == 1 ? 'Regional' : 'Metropolitan'",
+          "as": "Station_Type"
         }
       ],
       "mark": {
@@ -79,8 +74,8 @@
           {"field": "Pax_annual", "type": "quantitative", "title": "Annual Passengers", "format": ","},
           {"field": "Stop_lat", "type": "quantitative", "title": "Latitude"},
           {"field": "Stop_long", "type": "quantitative", "title": "Longitude"},
-          {"field": "distanceFromCity", "type": "quantitative", "title": "Distance from City (km)", "format": ".2f"},
-          {"field": "Regional", "type": "nominal", "title": "Regional Station"}
+          {"field": "Station_Type", "type": "nominal", "title": "Station Type"},
+          {"field": "properties.SA4_NAME21", "type": "nominal", "title": "Region"}
         ]
       }
     },
@@ -89,7 +84,7 @@
         "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/js/victoria_map.json",
         "format": {"type": "topojson", "feature": "ne_110m_graticules_1"}
       },
-      "mark": {"type": "geoshape", "stroke": "black", "strokeWidth": 0.5}
+      "mark": {"type": "geoshape", "stroke": "gray", "strokeWidth": 0.25}
     }
   ]
 }
