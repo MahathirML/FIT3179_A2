@@ -2,10 +2,14 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 700,
   "height": 450,
+  "autosize": {
+    "type": "fit",
+    "contains": "content"
+  },
   "projection": {
     "type": "mercator",
-    "scale": 12750,
-    "center": [144.9671, -37.8183]
+    "scale": 10000,
+    "center": {"expr": "center"}
   },
   "config": {
     "background": null
@@ -13,10 +17,10 @@
   "params": [
     {
       "name": "selectedRegion",
-      "value": "Melbourne - Inner",
+      "value": "All",
       "bind": {
         "input": "select",
-        "options": [
+        "options": [ "All",
           "Ballarat", "Bendigo", "Geelong", "Hume", "Latrobe - Gippsland", 
           "Melbourne - Inner", "Melbourne - Inner East", "Melbourne - Inner South", 
           "Melbourne - North East", "Melbourne - North West", "Melbourne - Outer East", 
@@ -29,23 +33,6 @@
     {
       "name": "center",
       "expr": "selectedRegion === 'Melbourne - Inner' ? [144.9671, -37.8183] : selectedRegion === 'Geelong' ? [144.3543, -38.1499] : selectedRegion === 'Ballarat' ? [143.8499, -37.5622] : selectedRegion === 'Bendigo' ? [144.2802, -36.757] : [144.9671, -37.8183]"
-    }
-  ],
-  "transform": [
-    {
-      "lookup": "Stop_lat",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/js/victoria_map.json",
-          "format": {"type": "topojson", "feature": "SA4_2021_AUST_GDA2020"}
-        },
-        "key": "geometry.coordinates[1]",
-        "fields": ["properties.SA4_NAME21"]
-      }
-    },
-    {
-      "calculate": "datum.Regional == 1 ? 'Regional' : 'Metropolitan'",
-      "as": "Station_Type"
     }
   ],
   "layer": [
@@ -64,12 +51,32 @@
         "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/js/victoria_map.json",
         "format": {"type": "topojson", "feature": "SA4_2021_AUST_GDA2020"}
       },
-      "mark": {"type": "geoshape", "fill": "#d6ead6", "stroke": "gray"}
+      "transform": [
+        {
+          "filter": "selectedRegion === 'All' ? true : datum.properties.SA4_NAME21 === selectedRegion"
+        }
+      ],
+      "mark": {"type": "geoshape", "fill": "#d6ead6", "stroke": "gray"},
+      "encoding": {
+        "tooltip": [
+          {"field": "properties.SA4_NAME21", "type": "nominal", "title": "Region"}
+        ]
+      }
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_HW9/refs/heads/main/data/regional_stations.csv"
+        "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/regional_stations.csv"
       },
+      "transform": [
+        {
+          "calculate": "datum.Regional == 1 ? 'Regional' : 'Metropolitan'",
+          "as": "Station_Type"
+          
+        },
+        {
+          "filter": "selectedRegion === 'All' ? true : datum.SA4_NAME21 === selectedRegion"
+          }],
+
       "mark": {
         "type": "circle",
         "tooltip": {"content": "data"}
@@ -88,7 +95,7 @@
           "field": "Pax_annual",
           "type": "quantitative",
           "title": "Annual Passengers",
-          "scale": {"range": [5, 25]}
+          "scale": {"range": [25, 25]}
         },
         "tooltip": [
           {"field": "Stop_name", "type": "nominal", "title": "Station Name"},
@@ -96,7 +103,7 @@
           {"field": "Stop_lat", "type": "quantitative", "title": "Latitude"},
           {"field": "Stop_long", "type": "quantitative", "title": "Longitude"},
           {"field": "Station_Type", "type": "nominal", "title": "Station Type"},
-          {"field": "properties.SA4_NAME21", "type": "nominal", "title": "Region"}
+          {"field": "SA4_NAME21", "type": "nominal", "title": "Region"}
         ]
       }
     },
