@@ -1,0 +1,26 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+    "data": {
+      "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/delivery_punctuality_data_trimmed.csv"    },
+    "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal", 
+      "title": "Date",
+      "axis": {"labelAngle": -45}
+    },
+    "y": {
+      "field": "delivery",
+      "type": "quantitative",
+      "title": "Delivery (%)"
+    },
+    "tooltip": [
+      {"field": "date", "type": "temporal", "title": "Date"},
+      {"field": "delivery", "type": "quantitative", "title": "Delivery (%)"}
+    ],
+    "color": {"value": "#4CAF50"}  
+  }
+}
