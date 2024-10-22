@@ -35,8 +35,11 @@
       "title": "Annual Passenger Count"
     },
     "color": {
-      "field": "Stop_name",
-      "type": "nominal",
+      "condition": {
+        "test": "datum.Regional === 1",
+        "value": "#E3A187"
+      },
+      "value": "#9BC5DD",
       "legend": null
     },
     "tooltip": [

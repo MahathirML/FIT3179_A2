@@ -21,28 +21,13 @@
     
     <div id="visualization-container">
       <!-- Map Visualization Block -->
-      <!-- Region Selection Dropdown -->
       <label for="region-select">Select Region IRL: </label>
       <select id="region-select">
+        <!-- Region Options -->
         <option value="All">All</option>
-        <option value="Ballarat">Ballarat</option>
-        <option value="Bendigo">Bendigo</option>
-        <option value="Geelong">Geelong</option>
-        <option value="Hume">Hume</option>
-        <option value="Latrobe - Gippsland">Latrobe - Gippsland</option>
-        <option value="Melbourne - Inner">Melbourne - Inner</option>
-        <option value="Melbourne - Inner East">Melbourne - Inner East</option>
-        <option value="Melbourne - Inner South">Melbourne - Inner South</option>
-        <option value="Melbourne - North East">Melbourne - North East</option>
-        <option value="Melbourne - North West">Melbourne - North West</option>
-        <option value="Melbourne - Outer East">Melbourne - Outer East</option>
-        <option value="Melbourne - South East">Melbourne - South East</option>
-        <option value="Melbourne - West">Melbourne - West</option>
-        <option value="Mornington Peninsula">Mornington Peninsula</option>
-        <option value="North West">North West</option>
-        <option value="Shepparton">Shepparton</option>
-        <option value="Warrnambool and South West">Warrnambool and South West</option>
+        <!-- Add more region options here -->
       </select>
+
       <div class="visualization-block map-block">
         <div class="text">
           <h3>Annual Passenger Count for Melbourne Train Stations</h3>
@@ -53,7 +38,6 @@
 
       <!-- Pie Chart, Text, and Bar Chart in the same line -->
       <div class="visualization-block combined-block">
-        <!-- Pie Chart Section -->
         <div class="visualization-item">
           <div id="pie_chart"></div>
           <div class="text">
@@ -62,12 +46,10 @@
           </div>
         </div>
 
-        <!-- Middle Text Section -->
         <div class="middle-text">
           <p><strong>Analysis:</strong> Regional stations cater to the majority of the population outside Melbourne, while metropolitan stations handle the bulk of the city's daily commuters. The charts illustrate the difference in station usage patterns.</p>
         </div>
 
-        <!-- Bar Chart Section -->
         <div class="visualization-item">
           <div id="bar_chart"></div>
           <div class="text">
@@ -76,44 +58,127 @@
           </div>
         </div>
       </div>
+
+      <!-- New 3-item Block for Highlights -->
+      <div class="visualization-block highlight-block">
+        <div class="highlight-item">
+          <p class="highlight-text"><strong><span class="highlight-percentage">69%</span> of residences meet this target</strong></p>
+        </div>
+        <div class="highlight-item middle-text">
+          <p>The Victorian Planning Provisions require <strong>95%</strong> of Melbourne residences to be within 400 m walking distance of a bus stop, 600 m of a tram stop, or 800 m of a train station.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-text"><strong><span class="highlight-percentage">14%</span> of suburbs in Melbourne meet this target.</strong></p>
+        </div>
+      </div>
+
+      <!-- New 3 Bar Charts Side by Side -->
+      <section id="station-facilities">
+        <h2>Station Facilities: Lifts, Hearing Aids, and PIDS</h2>
+
+        <!-- Three bar charts side by side -->
+        <div class="visualization-block combined-block">
+          <div class="visualization-item">
+            <div id="lift_chart"></div>
+            <div class="text">
+              <h3>Lifts Availability</h3>
+              <p style="font-style: italic;">This bar chart shows the availability of lifts across train stations in Melbourne.</p>
+            </div>
+          </div>
+
+          <div class="visualization-item">
+            <div id="hearing_aid_chart"></div>
+            <div class="text">
+              <h3>Hearing Loop Availability</h3>
+              <p style="font-style: italic;">This bar chart shows the availability of hearing loops at train stations, which support hearing aid users.</p>
+            </div>
+          </div>
+
+          <div class="visualization-item">
+            <div id="pids_chart"></div>
+            <div class="text">
+              <h3>PIDS Types (Passenger Information Display Systems)</h3>
+              <p style="font-style: italic;">This bar chart categorizes the types of Passenger Information Display Systems (PIDS) across the stations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </section>
 
-  <!-- Embed the visualizations and pass the selected region to all of them -->
+  <!-- Embed the visualizations -->
   <script type="text/javascript">
     const regionSelect = document.getElementById('region-select');
   
     // Function to update visualizations with the selected region
     function updateVisualizations(region) {
-      const signal = { "region": region };  // Define the region signal
-  
       // Map Visualization
       var mapSpec = "js/ps_map.vg.json";
       vegaEmbed('#symbol_map', mapSpec, { actions: false, renderer: 'svg' }).then(function(result) {
         result.view.signal('selectedRegion', region).run();
       }).catch(console.error);
-  
+
       // Pie Chart Visualization
       var pieSpec = "js/pie_chart.vg.json";
       vegaEmbed('#pie_chart', pieSpec, { actions: false, renderer: 'svg' }).then(function(result) {
         result.view.signal('selectedRegion', region).run();
       }).catch(console.error);
-  
+
       // Bar Chart Visualization
       var barSpec = "js/bar_chart.vg.json";
       vegaEmbed('#bar_chart', barSpec, { actions: false, renderer: 'svg' }).then(function(result) {
         result.view.signal('selectedRegion', region).run();
       }).catch(console.error);
     }
-  
+
     // Add event listener to region select dropdown
     regionSelect.addEventListener('change', function() {
       updateVisualizations(regionSelect.value);
     });
-  
+
     // Initialize visualizations with default region 'All'
     updateVisualizations('All');
-  </script>  
 
+    // Lifts Bar Chart
+    var liftChartSpec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
+      "mark": "bar",
+      "encoding": {
+        "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
+        "color": {"field": "lift", "type": "nominal"},
+        "tooltip": [{"field": "lift", "title": "Lift Availability"}, {"aggregate": "count", "field": "station", "title": "Number of Stations"}]
+      }
+    };
+    vegaEmbed('#lift_chart', liftChartSpec, { actions: false });
+
+    // Hearing Aids Bar Chart
+    var hearingAidChartSpec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
+      "mark": "bar",
+      "encoding": {
+        "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
+        "color": {"field": "he_loop", "type": "nominal"},
+        "tooltip": [{"field": "he_loop", "title": "Hearing Loop Availability"}, {"aggregate": "count", "field": "station", "title": "Number of Stations"}]
+      }
+    };
+    vegaEmbed('#hearing_aid_chart', hearingAidChartSpec, { actions: false });
+
+    // PIDS Bar Chart
+    var pidsChartSpec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
+      "mark": "bar",
+      "encoding": {
+        "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
+        "color": {"field": "pids", "type": "nominal"},
+        "tooltip": [{"field": "pids", "title": "PIDS Type"}, {"aggregate": "count", "field": "station", "title": "Number of Stations"}]
+      }
+    };
+    vegaEmbed('#pids_chart', pidsChartSpec, { actions: false });
+
+  </script>  
 </body>
 </html>
