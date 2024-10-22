@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 300,
-  "height": 300,
+  "width": "container",
+  "height": "container",
   "params": [
     {
       "name": "selectedRegion",
@@ -19,25 +19,70 @@
     {
       "filter": "selectedRegion === 'All' ? true : datum.SA4_NAME21 === selectedRegion" 
     },
-    {"aggregate": [{"op": "count", "as": "StationCount"}], "groupby": ["Regional"]},
+    {
+      "aggregate": [{"op": "count", "as": "StationCount"}],
+      "groupby": ["Regional"]
+    },
     {
       "calculate": "datum.Regional == 1 ? 'Regional' : 'Metropolitan'",
       "as": "StationLabel"
+    },
+    {
+      "joinaggregate": [
+        {"op": "sum", "field": "StationCount", "as": "TotalStations"}
+      ]
+    },
+    {
+      "calculate": "(datum.StationCount / datum.TotalStations) * 100",
+      "as": "Percentage"
+    },
+    {
+      "calculate": "datum.StationLabel + ' (' + round(datum.Percentage) + '%)'",
+      "as": "LabelText"
     }
   ],
   
-  "mark": {"type": "arc", "innerRadius": 50},
-  "encoding": {
-    "theta": {"field": "StationCount", "type": "quantitative"},
-    "color": {
-      "field": "StationLabel",
-      "type": "nominal",
-      "scale": {"range": ["#4caf50", "#ff7043"]},
-      "title": "Station Type"
+  "layer": [
+    {
+      "name": "******RING BACKGROUND******",
+      "mark": {
+        "type": "arc",
+        "outerRadius": 100
+      },
+      "encoding": {
+        "theta": {"field": "StationCount", "type": "quantitative"},
+        "color": {
+          "field": "StationLabel",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Regional", "Metropolitan"],  
+            "range": ["#9BC5DD", "#E3A187"]  
+          },
+          "title": "Station Type",
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "StationLabel", "type": "nominal", "title": "Station Type"},
+          {"field": "StationCount", "type": "quantitative", "title": "Number of Stations"},
+          {"field": "Percentage", "type": "quantitative", "title": "Percentage", "format": ".1f"}
+        ]
+      }
     },
-    "tooltip": [
-      {"field": "StationLabel", "type": "nominal", "title": "Type"},
-      {"field": "StationCount", "type": "quantitative", "title": "No. of Stations"}
-    ]
-  }
+    {
+      "name": "******Name labels******",
+      "mark": {
+        "type": "text",
+        "radius": {
+          "expr": "datum.Percentage == 100 ? 0 : -80" 
+        },
+        "fontSize": 14,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {"field": "LabelText", "type": "nominal"},
+        "theta": {"field": "StationCount", "type": "quantitative"},
+        "color": {"value": "black"}
+      }
+    }
+  ]
 }

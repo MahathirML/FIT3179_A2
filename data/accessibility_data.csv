@@ -1,0 +1,220 @@
+﻿station,he_loop,lift,pids
+Alamein,No,No,No
+Albion,No,No,Dot Matrix
+Ascot Vale,No,No,No
+Ashburton,No,No,No
+Balaclava,No,No,Dot Matrix
+Baxter,No,No,No
+Bayswater,Yes,Yes,LCD
+Bentleigh,Yes,Yes,LCD
+Bonbeach,No,No,Dot Matrix
+Brighton Beach,No,No,Dot Matrix
+Broadmeadows,No,No,Dot Matrix
+Burnley,No,No,Dot Matrix
+Carnegie,No,No,No
+Caulfield,No,No,Dot Matrix
+Cheltenham,No,No,Dot Matrix
+Cranbourne,No,No,Dot Matrix
+Croydon,No,No,Dot Matrix
+Dennis,No,No,LCD
+Diamond Creek,No,No,No
+Diggers Rest,No,No,Dot Matrix
+Eaglemont,No,No,No
+East Camberwell,No,No,No
+East Malvern,No,No,No
+Epping,Yes,Yes,Dot Matrix
+Frankston,No,No,Dot Matrix
+Gardenvale,No,No,No
+Ginifer,Yes,Yes,LCD
+Glenbervie,No,No,No
+Glenferrie,No,No,Dot Matrix
+Greensborough,No,No,Dot Matrix
+Hallam,No,No,No
+Hartwell,No,No,Dot Matrix
+Heatherdale,Yes,Yes,LCD
+Heathmont,No,No,Dot Matrix
+Heyington,No,No,No
+Highett,No,No,Dot Matrix
+Holmesglen,No,No,Dot Matrix
+Hoppers Crossing,No,No,Dot Matrix
+Hurstbridge,No,No,Dot Matrix
+Kooyong,No,No,LCD
+Lalor,No,No,Dot Matrix
+Leawarra,No,No,No
+Melbourne Central,Yes,Yes,LCD
+Merinda Park,No,No,Dot Matrix
+Merri,No,No,No
+Middle Brighton,No,No,No
+Mitcham,Yes,Yes,Dot Matrix
+Montmorency,No,No,No
+Moorabbin,No,No,Dot Matrix
+Mooroolbark,No,No,Dot Matrix
+Moreland,No,No,No
+Murrumbeena,No,No,No
+Watergardens,No,Yes,Dot Matrix
+North Williamstown,No,No,LCD
+Nunawading,Yes,Yes,Dot Matrix
+Oakleigh,No,No,Dot Matrix
+St Albans,Yes,Yes,LCD
+Syndal,No,No,Dot Matrix
+Thornbury,No,No,Dot Matrix
+Tottenham,No,No,No
+Upper Ferntree Gully,No,No,Dot Matrix
+Officer,No,No,No
+Parliament,Yes,Yes,LCD
+Pascoe Vale,No,No,No
+Patterson,No,No,Dot Matrix
+Regent,No,No,Dot Matrix
+Ringwood,Yes,Yes,Dot Matrix
+Riversdale,No,No,Dot Matrix
+Rosanna,No,No,Dot Matrix
+Sandringham,No,No,Dot Matrix
+Seaford,No,No,Dot Matrix
+Roxburgh Park,Yes,No,Dot Matrix
+Upwey,No,No,No
+Watsonia,No,No,Dot Matrix
+West Richmond,No,No,No
+Willison,No,No,No
+South Morang,Yes,Yes,Dot Matrix
+Armadale,No,No,Dot Matrix
+Aspendale,No,No,No
+Belgrave,No,No,Dot Matrix
+Bittern,No,No,No
+Blackburn,No,Yes,Dot Matrix
+Boronia,No,Yes,Dot Matrix
+Brunswick,No,No,No
+Clifton Hill,No,No,Dot Matrix
+Coburg,No,No,Dot Matrix
+Collingwood,No,No,No
+Craigieburn,Yes,No,Dot Matrix
+Croxton,No,No,LCD
+Dandenong,No,Yes,Dot Matrix
+Elsternwick,No,No,Dot Matrix
+Eltham,No,No,Dot Matrix
+Fairfield,No,No,Dot Matrix
+Flagstaff,Yes,Yes,LCD
+Flemington Bridge,No,No,No
+Gardiner,Yes,Yes,LCD
+Glen Iris,No,No,Dot Matrix
+Glen Waverley,No,No,Dot Matrix
+Glenroy,No,No,Dot Matrix
+Heidelberg,No,No,Dot Matrix
+Hughesdale,No,No,No
+Huntingdale,No,No,Dot Matrix
+Jewell,No,No,No
+Jolimont,No,No,Dot Matrix
+Kananook,No,No,Dot Matrix
+Laburnum,No,No,No
+Laverton,No,Yes,Dot Matrix
+Lilydale,No,No,Dot Matrix
+Mentone,No,No,Dot Matrix
+Merlynston,No,No,No
+Middle Footscray,No,No,No
+Mont Albert,No,No,No
+Moonee Ponds,No,No,Dot Matrix
+Mordialloc,No,No,Dot Matrix
+Morradoo,No,No,No
+Mount Waverley,No,No,No
+Noble Park,No,No,Dot Matrix
+Northcote,No,No,Dot Matrix
+Ormond,Yes,Yes,LCD
+Pakenham,No,No,Dot Matrix
+Parkdale,No,No,Dot Matrix
+Prahran,No,No,Dot Matrix
+Reservoir,No,No,Dot Matrix
+Rushall,No,No,No
+Ruthven,No,No,No
+Seaholme,No,No,LCD
+Seddon,No,No,Dot Matrix
+Somerville,No,No,No
+Spotswood,No,No,No
+Springvale,Yes,Yes,Dot Matrix
+Strathmore,No,No,No
+Sunshine,Yes,Yes,Dot Matrix
+Toorak,No,No,Dot Matrix
+Tooronga,No,No,No
+Tyabb,No,No,No
+Upfield,No,No,Dot Matrix
+Wattle Glen,No,No,No
+Werribee,No,No,Dot Matrix
+Westall,No,Yes,Dot Matrix
+Westona,No,No,LCD
+Williamstown Beach,No,No,No
+Cardinia Road,Yes,No,Dot Matrix
+Williams Landing,Yes,Yes,Dot Matrix
+Aircraft,No,No,No
+Flemington Racecourse,No,No,No
+Showgrounds,No,No,No
+Southland,Yes,Yes,LCD
+Alphington,No,No,Dot Matrix
+Altona,No,No,LCD
+Anstey,No,No,No
+Auburn,No,No,No
+Batman,No,No,No
+Beaconsfield,No,No,No
+Bell,No,No,Dot Matrix
+Berwick,No,No,Dot Matrix
+Box Hill,No,Yes,CRT
+Burwood,No,No,Dot Matrix
+Camberwell,No,No,Dot Matrix
+Canterbury,No,No,No
+Carrum,No,No,Dot Matrix
+Chatham,No,No,No
+Chelsea,No,No,Dot Matrix
+Clayton,No,No,LCD
+Crib Point,No,No,No
+Darebin,No,No,No
+Darling,No,No,Dot Matrix
+East Richmond,No,No,Dot Matrix
+Edithvale,No,No,Dot Matrix
+Essendon,No,No,Dot Matrix
+Fawkner,No,No,No
+Ferntree Gully,No,No,Dot Matrix
+Flinders Street,Plat 1 only,Yes,LCD
+Footscray,Yes,Yes,Dot Matrix
+Glenhuntly,No,No,Dot Matrix
+Gowrie,No,No,Dot Matrix
+Hampton,No,No,No
+Hastings,No,No,No
+Hawksburn,No,No,Dot Matrix
+Hawthorn,No,No,Dot Matrix
+Ivanhoe,No,No,Dot Matrix
+Jacana,No,No,No
+Jordanville,No,No,No
+Kensington,No,No,No
+Keon Park,No,No,Dot Matrix
+Macaulay,No,No,No
+Macleod,No,No,Dot Matrix
+Malvern,No,No,Dot Matrix
+Mckinnon,Yes,Yes,LCD
+Narre Warren,No,No,No
+Newmarket,No,No,No
+Newport,No,No,LCD
+North Brighton,No,No,No
+North Melbourne,No,Yes,LCD
+North Richmond,No,No,Dot Matrix
+Oak Park,No,No,No
+Preston,No,No,Dot Matrix
+Keilor Plains,No,No,Dot Matrix
+Richmond,No,No,LCD
+Ringwood East,No,No,No
+Ripponlea,No,No,Dot Matrix
+Royal Park,No,No,No
+Sandown Park,No,No,No
+South Kensington,No,No,No
+South Yarra,No,No,Dot Matrix
+Southern Cross,No,Yes,LCD
+Stony Point,No,No,No
+Sunbury,No,No,Dot Matrix
+Surrey Hills,No,No,Dot Matrix
+Tecoma,No,No,No
+Thomastown,Yes,Yes,Dot Matrix
+Victoria Park,No,No,Dot Matrix
+West Footscray,Yes,Yes,Dot Matrix
+Westgarth,No,No,LCD
+Williamstown,No,No,Dot Matrix
+Windsor,No,No,Dot Matrix
+Yarraman,No,No,No
+Yarraville,No,No,LCD
+Coolaroo,Yes,Yes,Dot Matrix
+Lynbrook,Yes,No,Dot Matrix

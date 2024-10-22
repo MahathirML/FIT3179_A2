@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 500,
-  "height": 300,
+  "width": "container",
+  "height": "container",
   "data": {
     "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/regional_stations.csv"
   },
@@ -10,7 +10,7 @@
       "sort": [{"field": "Pax_annual", "order": "descending"}]
     },
     {
-      "filter": "selectedRegion === 'All' ? true : datum.SA4_NAME21 === selectedRegion"
+      "filter": "selectedRegion === 'All' ? datum.Pax_annual > 3000000 : datum.SA4_NAME21 === selectedRegion"
     },
     {
       "window": [{"op": "rank", "as": "rank"}],
@@ -23,16 +23,16 @@
   "mark": "bar",
   "encoding": {
     "x": {
-      "field": "Pax_annual",
-      "type": "quantitative",
-      "title": "Annual Passenger Count",
-      "axis": {"labelAngle": 0}
-    },
-    "y": {
       "field": "Stop_name",
       "type": "nominal",
-      "sort": "-x",
-      "title": "Station Name"
+      "sort": "-y",
+      "title": "Station Name",
+      "axis": {"labelAngle": -45}
+    },
+    "y": {
+      "field": "Pax_annual",
+      "type": "quantitative",
+      "title": "Annual Passenger Count"
     },
     "color": {
       "field": "Stop_name",
@@ -41,7 +41,7 @@
     },
     "tooltip": [
       {"field": "Stop_name", "type": "nominal", "title": "Station Name"},
-      {"field": "Pax_annual", "type": "quantitative", "title": "Annual Passenger Count"}
+      {"field": "Pax_annual", "type": "quantitative", "title": "Annual Passenger Count", "format": ","}
     ]
   },
   "params": [

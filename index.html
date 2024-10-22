@@ -15,57 +15,69 @@
   <h1>Victorian Train Stations Analysis</h1>
   <p class="caption">An analysis of passenger distribution and the regional vs metropolitan station breakdown in Melbourne for FY 2023-2024.</p>
 
-  <!-- Region Selection Dropdown -->
-  <label for="region-select">Select Region IRL: </label>
-  <select id="region-select">
-    <option value="All">All</option>
-    <option value="Ballarat">Ballarat</option>
-    <option value="Bendigo">Bendigo</option>
-    <option value="Geelong">Geelong</option>
-    <option value="Hume">Hume</option>
-    <option value="Latrobe - Gippsland">Latrobe - Gippsland</option>
-    <option value="Melbourne - Inner">Melbourne - Inner</option>
-    <option value="Melbourne - Inner East">Melbourne - Inner East</option>
-    <option value="Melbourne - Inner South">Melbourne - Inner South</option>
-    <option value="Melbourne - North East">Melbourne - North East</option>
-    <option value="Melbourne - North West">Melbourne - North West</option>
-    <option value="Melbourne - Outer East">Melbourne - Outer East</option>
-    <option value="Melbourne - South East">Melbourne - South East</option>
-    <option value="Melbourne - West">Melbourne - West</option>
-    <option value="Mornington Peninsula">Mornington Peninsula</option>
-    <option value="North West">North West</option>
-    <option value="Shepparton">Shepparton</option>
-    <option value="Warrnambool and South West">Warrnambool and South West</option>
-  </select>
-
-  <!-- Visualization Container -->
-  <div id="visualization-container">
-    <!-- Map Visualization Block -->
-    <div class="visualization-block map-block">
-      <div class="text">
-        <h3>Annual Passenger Count for Melbourne Train Stations</h3>
-        <p style="font-style: italic;">This map shows the geographic locations of train stations in Melbourne, colored by the annual passenger count.</p>
+  <!-- Section Title -->
+  <section id="regional-metropolitan-stations">
+    <h2>Regional and Metropolitan Stations</h2>
+    
+    <div id="visualization-container">
+      <!-- Map Visualization Block -->
+      <!-- Region Selection Dropdown -->
+      <label for="region-select">Select Region IRL: </label>
+      <select id="region-select">
+        <option value="All">All</option>
+        <option value="Ballarat">Ballarat</option>
+        <option value="Bendigo">Bendigo</option>
+        <option value="Geelong">Geelong</option>
+        <option value="Hume">Hume</option>
+        <option value="Latrobe - Gippsland">Latrobe - Gippsland</option>
+        <option value="Melbourne - Inner">Melbourne - Inner</option>
+        <option value="Melbourne - Inner East">Melbourne - Inner East</option>
+        <option value="Melbourne - Inner South">Melbourne - Inner South</option>
+        <option value="Melbourne - North East">Melbourne - North East</option>
+        <option value="Melbourne - North West">Melbourne - North West</option>
+        <option value="Melbourne - Outer East">Melbourne - Outer East</option>
+        <option value="Melbourne - South East">Melbourne - South East</option>
+        <option value="Melbourne - West">Melbourne - West</option>
+        <option value="Mornington Peninsula">Mornington Peninsula</option>
+        <option value="North West">North West</option>
+        <option value="Shepparton">Shepparton</option>
+        <option value="Warrnambool and South West">Warrnambool and South West</option>
+      </select>
+      <div class="visualization-block map-block">
+        <div class="text">
+          <h3>Annual Passenger Count for Melbourne Train Stations</h3>
+          <p style="font-style: italic;">This map shows the geographic locations of train stations in Melbourne, colored by the annual passenger count.</p>
+        </div>
+        <div id="symbol_map"></div>
       </div>
-      <div id="symbol_map"></div>
-    </div>
 
-    <!-- Pie Chart Visualization Block -->
-    <div class="visualization-block pie-chart-block">
-      <div id="pie_chart"></div>
-      <div class="text">
-        <h3>Regional vs Metropolitan Stations in Melbourne</h3>
-        <p style="font-style: italic;">The pie chart highlights the distribution of regional and metropolitan train stations in Melbourne.</p>
+      <!-- Pie Chart, Text, and Bar Chart in the same line -->
+      <div class="visualization-block combined-block">
+        <!-- Pie Chart Section -->
+        <div class="visualization-item">
+          <div id="pie_chart"></div>
+          <div class="text">
+            <h3>Regional vs Metropolitan Stations in Melbourne</h3>
+            <p style="font-style: italic;">The pie chart highlights the distribution of regional and metropolitan train stations in Melbourne.</p>
+          </div>
+        </div>
+
+        <!-- Middle Text Section -->
+        <div class="middle-text">
+          <p><strong>Analysis:</strong> Regional stations cater to the majority of the population outside Melbourne, while metropolitan stations handle the bulk of the city's daily commuters. The charts illustrate the difference in station usage patterns.</p>
+        </div>
+
+        <!-- Bar Chart Section -->
+        <div class="visualization-item">
+          <div id="bar_chart"></div>
+          <div class="text">
+            <h3>Most Used Stations in Melbourne</h3>
+            <p style="font-style: italic;">The bar chart shows the top 10 most used train stations in Melbourne.</p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Bar Chart Visualization Block -->
-    <div class="visualization-block bar-chart-block">
-      <div class="text">
-        <h3>Most Used Stations in Melbourne</h3>
-        <p style="font-style: italic;">The bar chart shows the top 10 most used train stations in Melbourne.</p>
-      </div>
-      <div id="bar_chart"></div>
-    </div>
+  </section>
 
   <!-- Embed the visualizations and pass the selected region to all of them -->
   <script type="text/javascript">
