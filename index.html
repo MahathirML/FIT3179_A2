@@ -15,83 +15,109 @@
   <h1>Victorian Train Stations Analysis</h1>
   <p class="caption">An analysis of passenger distribution and the regional vs metropolitan station breakdown in Melbourne for FY 2023-2024.</p>
 
+  <!-- Region Selection Dropdown -->
+  <label for="region-select">Select Region IRL: </label>
+  <select id="region-select">
+    <option value="All">All</option>
+    <option value="Ballarat">Ballarat</option>
+    <option value="Bendigo">Bendigo</option>
+    <option value="Geelong">Geelong</option>
+    <option value="Hume">Hume</option>
+    <option value="Latrobe - Gippsland">Latrobe - Gippsland</option>
+    <option value="Melbourne - Inner">Melbourne - Inner</option>
+    <option value="Melbourne - Inner East">Melbourne - Inner East</option>
+    <option value="Melbourne - Inner South">Melbourne - Inner South</option>
+    <option value="Melbourne - North East">Melbourne - North East</option>
+    <option value="Melbourne - North West">Melbourne - North West</option>
+    <option value="Melbourne - Outer East">Melbourne - Outer East</option>
+    <option value="Melbourne - South East">Melbourne - South East</option>
+    <option value="Melbourne - West">Melbourne - West</option>
+    <option value="Mornington Peninsula">Mornington Peninsula</option>
+    <option value="North West">North West</option>
+    <option value="Shepparton">Shepparton</option>
+    <option value="Warrnambool and South West">Warrnambool and South West</option>
+  </select>
+
   <!-- Visualization Container -->
   <div id="visualization-container">
     <!-- Map Visualization Block -->
     <div class="visualization-block map-block">
-      <!-- Text on the left -->
       <div class="text">
         <h3>Annual Passenger Count for Melbourne Train Stations</h3>
-        <p style="font-style: italic;">This map shows the geographic locations of train stations in Melbourne, colored by the annual passenger count. Hover over each station to view detailed information about the station's name, annual passengers, and coordinates.</p>
+        <p style="font-style: italic;">This map shows the geographic locations of train stations in Melbourne, colored by the annual passenger count.</p>
       </div>
-      <!-- Visualization on the right -->
       <div id="symbol_map"></div>
     </div>
 
     <!-- Pie Chart Visualization Block -->
     <div class="visualization-block pie-chart-block">
-      <!-- Visualization on the left -->
       <div id="pie_chart"></div>
-      <!-- Text on the right -->
       <div class="text">
         <h3>Regional vs Metropolitan Stations in Melbourne</h3>
-        <p style="font-style: italic;">The pie chart highlights the distribution of regional and metropolitan train stations in Melbourne, offering a quick glance at the proportion of each type.</p>
+        <p style="font-style: italic;">The pie chart highlights the distribution of regional and metropolitan train stations in Melbourne.</p>
       </div>
     </div>
 
     <!-- Bar Chart Visualization Block -->
     <div class="visualization-block bar-chart-block">
-      <!-- Text on the left -->
       <div class="text">
         <h3>Most Used Stations in Melbourne</h3>
-        <p style="font-style: italic;">The bar chart shows the top 10 most used train stations in Melbourne, ranked by annual passenger count.</p>
+        <p style="font-style: italic;">The bar chart shows the top 10 most used train stations in Melbourne.</p>
       </div>
-      <!-- Bar chart visualization -->
       <div id="bar_chart"></div>
     </div>
 
     <!-- Choropleth Visualization Block -->
     <div class="visualization-block choropleth-block">
-      <!-- Text on the left -->
       <div class="text">
         <h3>Number of Stations by Region</h3>
-        <p style="font-style: italic;">The choropleth map displays the number of train stations in each region of Victoria, allowing a quick comparison of station density across regions.</p>
+        <p style="font-style: italic;">The choropleth map displays the number of train stations in each region of Victoria.</p>
       </div>
-      <!-- Choropleth visualization -->
       <div id="choropleth_map"></div>
     </div>
   </div>
 
-  <!-- Embed the map visualization -->
+  <!-- Embed the visualizations and pass the selected region to all of them -->
   <script type="text/javascript">
-    var spec2 = "js/ps_map.vg.json";
-    vegaEmbed('#symbol_map', spec2, { actions: false }).then(function(result) {
-      // Access the Vega view instance as result.view
-    }).catch(console.error);
-  </script>
+    const regionSelect = document.getElementById('region-select');
 
-  <!-- Embed the pie chart visualization -->
-  <script type="text/javascript">
-    var pieSpec = "js/pie_chart.vg.json";
-    vegaEmbed('#pie_chart', pieSpec, { actions: false }).then(function(result) {
-      // Access the Vega view instance as result.view
-    }).catch(console.error);
-  </script>
+    // Function to update visualizations with the selected region
+    function updateVisualizations(region) {
+      // Define a signal that will be passed to all visualizations
+      const signal = { "region": region };
 
-  <!-- Embed the bar chart visualization -->
-  <script type="text/javascript">
-    var barSpec = "js/bar_chart.vg.json";
-    vegaEmbed('#bar_chart', barSpec, { actions: false }).then(function(result) {
-      // Access the Vega view instance as result.view
-    }).catch(console.error);
-  </script>
+      // Map Visualization
+      var mapSpec = "js/ps_map.vg.json";
+      vegaEmbed('#symbol_map', mapSpec, { actions: false, renderer: 'svg' }).then(function(result) {
+        result.view.signal('selectedRegion', region).run(); // Update signal for map
+      }).catch(console.error);
 
-  <!-- Embed the choropleth visualization -->
-  <script type="text/javascript">
-    var choroplethSpec = "js/choropleth.vg.json";
-    vegaEmbed('#choropleth_map', choroplethSpec, { actions: true }).then(function(result) {
-      // Access the Vega view instance as result.view
-    }).catch(console.error);
+      // Pie Chart Visualization
+      var pieSpec = "js/pie_chart.vg.json";
+      vegaEmbed('#pie_chart', pieSpec, { actions: false, renderer: 'svg' }).then(function(result) {
+        result.view.signal('selectedRegion', region).run(); // Update signal for pie chart
+      }).catch(console.error);
+
+      // Bar Chart Visualization
+      var barSpec = "js/bar_chart.vg.json";
+      vegaEmbed('#bar_chart', barSpec, { actions: false, renderer: 'svg' }).then(function(result) {
+        result.view.signal('selectedRegion', region).run(); // Update signal for bar chart
+      }).catch(console.error);
+
+      // Choropleth Map Visualization
+      var choroplethSpec = "js/choropleth_map.vg.json";
+      vegaEmbed('#choropleth_map', choroplethSpec, { actions: false, renderer: 'svg' }).then(function(result) {
+        result.view.signal('selectedRegion', region).run(); // Update signal for choropleth
+      }).catch(console.error);
+    }
+
+    // Add event listener to region select dropdown
+    regionSelect.addEventListener('change', function() {
+      updateVisualizations(regionSelect.value);
+    });
+
+    // Initialize visualizations with default region 'All'
+    updateVisualizations('All');
   </script>
 
 </body>

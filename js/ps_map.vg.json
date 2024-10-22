@@ -4,15 +4,15 @@
   "height": 450,
   "autosize": {
     "type": "fit",
-    "contains": "content"
+    "contains": "padding"
   },
   "projection": {
     "type": "mercator",
-    "scale": 10000,
-    "center": {"expr": "center"}
+    "scale": {"expr": "selectedRegion === 'All' ? 10000 : scaleValue"},
+    "center": {"expr": "selectedRegion === 'All' ? [144.9671, -37.8183] : centerValue"}
   },
   "config": {
-    "background": null
+    "background": "lightgray"
   },
   "params": [
     {
@@ -31,32 +31,30 @@
       }
     },
     {
-      "name": "center",
-      "expr": "selectedRegion === 'Melbourne - Inner' ? [144.9671, -37.8183] : selectedRegion === 'Geelong' ? [144.3543, -38.1499] : selectedRegion === 'Ballarat' ? [143.8499, -37.5622] : selectedRegion === 'Bendigo' ? [144.2802, -36.757] : [144.9671, -37.8183]"
+      "name": "centerValue",
+      "expr": "selectedRegion === 'Melbourne - Inner' ? [144.9671, -37.8183] : selectedRegion === 'Geelong' ? [144.3543, -38.1499] : selectedRegion === 'Ballarat' ? [143.8499, -37.5622] : selectedRegion === 'Bendigo' ? [142.2802, -36.757] : selectedRegion === 'Hume' ? [145.6835, -36.1237] : selectedRegion === 'Latrobe - Gippsland' ? [146.6759, -38.0035] : selectedRegion === 'Melbourne - Inner East' ? [145.0578, -37.8374] : selectedRegion === 'Melbourne - Inner South' ? [145.0284, -37.8769] : selectedRegion === 'Melbourne - North East' ? [145.1211, -37.7239] : selectedRegion === 'Melbourne - North West' ? [144.9006, -37.7] : selectedRegion === 'Melbourne - Outer East' ? [145.3, -37.825] : selectedRegion === 'Melbourne - South East' ? [145.3, -38.0] : selectedRegion === 'Melbourne - West' ? [144.75, -37.8] : selectedRegion === 'Mornington Peninsula' ? [144.9631, -38.3676] : selectedRegion === 'North West' ? [143.5274, -36.5981] : selectedRegion === 'Shepparton' ? [145.4099, -36.3811] : selectedRegion === 'Warrnambool and South West' ? [142.4866, -38.384] : [144.9671, -37.8183]"
+    },
+    {
+      "name": "scaleValue",
+      "expr": "selectedRegion === 'Melbourne - Inner' ? 110000 : selectedRegion === 'Geelong' ? 20000 : selectedRegion === 'Ballarat' ? 8500 : selectedRegion === 'Bendigo' ? 9000 : selectedRegion === 'Hume' ? 7000 : selectedRegion === 'Latrobe - Gippsland' ? 10000 : selectedRegion === 'Melbourne - Inner East' ? 110000 : selectedRegion === 'Melbourne - Inner South' ? 10500 : selectedRegion === 'Melbourne - North East' ? 9500 : selectedRegion === 'Melbourne - North West' ? 9500 : selectedRegion === 'Melbourne - Outer East' ? 9500 : selectedRegion === 'Melbourne - South East' ? 9500 : selectedRegion === 'Melbourne - West' ? 9500 : selectedRegion === 'Mornington Peninsula' ? 9000 : selectedRegion === 'North West' ? 7000 : selectedRegion === 'Shepparton' ? 7000 : selectedRegion === 'Warrnambool and South West' ? 12000 : 5000"
     }
+    
   ],
   "layer": [
     {
-      "mark": {"type": "rect", "fill": "lightblue", "stroke": null},
-      "data": {"values": [{}]},
-      "encoding": {
-        "x": {"value": 0},
-        "y": {"value": 0},
-        "x2": {"value": 700},
-        "y2": {"value": 450}
-      }
+      "data": {
+        "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/js/victoria_map.json",
+        "format": {"type": "topojson", "feature": "rectangle"}
+      },
+      "mark": {"type": "geoshape", "fill": "lightblue", "stroke": null},  
+      "encoding": {}
     },
     {
       "data": {
         "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/js/victoria_map.json",
         "format": {"type": "topojson", "feature": "SA4_2021_AUST_GDA2020"}
       },
-      "transform": [
-        {
-          "filter": "selectedRegion === 'All' ? true : datum.properties.SA4_NAME21 === selectedRegion"
-        }
-      ],
-      "mark": {"type": "geoshape", "fill": "#d6ead6", "stroke": "gray"},
+      "mark": {"type": "geoshape", "fill": "#cbddcb", "stroke": "gray"},
       "encoding": {
         "tooltip": [
           {"field": "properties.SA4_NAME21", "type": "nominal", "title": "Region"}
@@ -71,14 +69,19 @@
         {
           "calculate": "datum.Regional == 1 ? 'Regional' : 'Metropolitan'",
           "as": "Station_Type"
-          
         },
         {
           "filter": "selectedRegion === 'All' ? true : datum.SA4_NAME21 === selectedRegion"
-          }],
-
+        },
+        {
+          "calculate": "datum.Pax_annual",  
+          "as": "sortKey"
+        }
+      ],
       "mark": {
         "type": "circle",
+        "stroke": "white",
+        "strokeWidth": 1,
         "tooltip": {"content": "data"}
       },
       "encoding": {
@@ -87,16 +90,17 @@
         "color": {
           "condition": {
             "test": "datum.Regional == 0",
-            "value": "#99000f"
+            "value": "#E3A187"  
           },
-          "value": "#0099ff"
+          "value": "#9BC5DD"
         },
         "size": {
           "field": "Pax_annual",
           "type": "quantitative",
           "title": "Annual Passengers",
-          "scale": {"range": [25, 25]}
+          "scale": {"range": [50, 1000]}  
         },
+        "order": {"field": "sortKey", "type": "quantitative", "sort": "descending"},  
         "tooltip": [
           {"field": "Stop_name", "type": "nominal", "title": "Station Name"},
           {"field": "Pax_annual", "type": "quantitative", "title": "Annual Passengers", "format": ","},
