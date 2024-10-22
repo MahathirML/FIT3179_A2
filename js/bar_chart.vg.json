@@ -36,11 +36,10 @@
     },
     "color": {
       "condition": {
-        "test": "datum.Regional === 1",
-        "value": "#E3A187"
+        "test": "datum.Regional == 1",
+        "value": "#9BC5DD" 
       },
-      "value": "#9BC5DD",
-      "legend": null
+      "value": "#E3A187"  
     },
     "tooltip": [
       {"field": "Stop_name", "type": "nominal", "title": "Station Name"},
