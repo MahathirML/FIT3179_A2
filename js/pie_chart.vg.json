@@ -2,22 +2,30 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 300,
   "height": 300,
-  "title": {
-    "text": "Distribution of Regional and Metropolitan Stations in Melbourne",
-    "fontSize": 18,
-    "subtitle": "Comparison of the number of stations by region type (FY 2023-2024)",
-    "subtitleFontSize": 14
-  },
+  "params": [
+    {
+      "name": "selectedRegion",
+      "value": "All"
+    }
+  ],
   "data": {
-    "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_HW9/refs/heads/main/data/regional_stations.csv"
+    "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/regional_stations.csv"
   },
   "transform": [
+    {
+      "calculate": "isNaN(datum.Pax_annual) || datum.Pax_annual === null ? 0 : datum.Pax_annual",
+      "as": "Pax_annual"
+    },
+    {
+      "filter": "selectedRegion === 'All' ? true : datum.SA4_NAME21 === selectedRegion" 
+    },
     {"aggregate": [{"op": "count", "as": "StationCount"}], "groupby": ["Regional"]},
     {
       "calculate": "datum.Regional == 1 ? 'Regional' : 'Metropolitan'",
       "as": "StationLabel"
     }
   ],
+  
   "mark": {"type": "arc", "innerRadius": 50},
   "encoding": {
     "theta": {"field": "StationCount", "type": "quantitative"},

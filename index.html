@@ -67,58 +67,41 @@
       <div id="bar_chart"></div>
     </div>
 
-    <!-- Choropleth Visualization Block -->
-    <div class="visualization-block choropleth-block">
-      <div class="text">
-        <h3>Number of Stations by Region</h3>
-        <p style="font-style: italic;">The choropleth map displays the number of train stations in each region of Victoria.</p>
-      </div>
-      <div id="choropleth_map"></div>
-    </div>
-  </div>
-
   <!-- Embed the visualizations and pass the selected region to all of them -->
   <script type="text/javascript">
     const regionSelect = document.getElementById('region-select');
-
+  
     // Function to update visualizations with the selected region
     function updateVisualizations(region) {
-      // Define a signal that will be passed to all visualizations
-      const signal = { "region": region };
-
+      const signal = { "region": region };  // Define the region signal
+  
       // Map Visualization
       var mapSpec = "js/ps_map.vg.json";
       vegaEmbed('#symbol_map', mapSpec, { actions: false, renderer: 'svg' }).then(function(result) {
-        result.view.signal('selectedRegion', region).run(); // Update signal for map
+        result.view.signal('selectedRegion', region).run();
       }).catch(console.error);
-
+  
       // Pie Chart Visualization
       var pieSpec = "js/pie_chart.vg.json";
       vegaEmbed('#pie_chart', pieSpec, { actions: false, renderer: 'svg' }).then(function(result) {
-        result.view.signal('selectedRegion', region).run(); // Update signal for pie chart
+        result.view.signal('selectedRegion', region).run();
       }).catch(console.error);
-
+  
       // Bar Chart Visualization
       var barSpec = "js/bar_chart.vg.json";
       vegaEmbed('#bar_chart', barSpec, { actions: false, renderer: 'svg' }).then(function(result) {
-        result.view.signal('selectedRegion', region).run(); // Update signal for bar chart
-      }).catch(console.error);
-
-      // Choropleth Map Visualization
-      var choroplethSpec = "js/choropleth_map.vg.json";
-      vegaEmbed('#choropleth_map', choroplethSpec, { actions: false, renderer: 'svg' }).then(function(result) {
-        result.view.signal('selectedRegion', region).run(); // Update signal for choropleth
+        result.view.signal('selectedRegion', region).run();
       }).catch(console.error);
     }
-
+  
     // Add event listener to region select dropdown
     regionSelect.addEventListener('change', function() {
       updateVisualizations(regionSelect.value);
     });
-
+  
     // Initialize visualizations with default region 'All'
     updateVisualizations('All');
-  </script>
+  </script>  
 
 </body>
 </html>
