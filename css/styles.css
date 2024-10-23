@@ -113,7 +113,11 @@
 	border-radius: 8px;
 	overflow: hidden;
 }
-
+#punctuality_chart, #delivery_chart {
+	width: 100%;
+	height: 400px;  /* Adjust as needed */
+  }
+  
 /* Styling for the overall page */
 body {
 	font-family: 'Roboto', sans-serif;
