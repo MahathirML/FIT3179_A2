@@ -6,36 +6,80 @@
     "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/delivery_punctuality_data_trimmed.csv"
   },
   "transform": [
-    {"calculate": "datum.punctuality - 93", "as": "divergence"}  
+    {"calculate": "datum.punctuality - 93", "as": "divergence"}
   ],
-  "mark": "bar",
-  "encoding": {
-    "x": {
-      "field": "date",
-      "type": "ordinal",
-      "title": "Date",
-      "axis": {
-        "labelAngle": -45,
-        "labelOverlap": "parity",  
-        "tickCount": 8
-    }
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "ordinal",
+          "title": "Month",
+          "axis": {
+            "labelAngle": -45,
+            "labelOverlap": "parity",
+            "tickCount": 8
+          }
+        },
+        "y": {
+          "field": "divergence",
+          "type": "quantitative",
+          "title": "Divergence from 93% Punctuality"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.divergence > 0",
+            "value": "#4CAF50"
+          },
+          "value": "#FF7043"
+        },
+        "tooltip": [
+          {"field": "date", "type": "ordinal", "title": "Month"},
+          {"field": "punctuality", "type": "quantitative", "title": "Punctuality (%)"},
+          {"field": "divergence", "type": "quantitative", "title": "Divergence"}
+        ]
+      }
     },
-    "y": {
-      "field": "divergence",
-      "type": "quantitative",
-      "title": "Divergence from 93% Punctuality"
+    {
+      "mark": {"type": "rule", "color": "#E3A187", "strokeWidth": 2},
+      "encoding": {
+        "x": {"field": "date", "type": "ordinal"},
+        "y": {"field": "divergence", "type": "quantitative"},
+        "opacity": {
+          "condition": {"test": "datum.date === '2020-09'", "value": 1},
+          "value": 0
+        }
+      }
     },
-    "color": {
-      "condition": {
-        "test": "datum.divergence > 0",
-        "value": "#4CAF50"  
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "dy": -5,
+        "fontWeight": "bold",
+        "color": "#333",
+        "backgroundColor": "#E3A187",
+        "radius": 5,
+        "padding": 5
       },
-      "value": "#FF7043"  
-    },
-    "tooltip": [
-      {"field": "date", "type": "ordinal", "title": "Date"},
-      {"field": "punctuality", "type": "quantitative", "title": "Punctuality (%)"},
-      {"field": "divergence", "type": "quantitative", "title": "Divergence"}
-    ]
-  }
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "divergence",
+          "type": "quantitative"
+        },
+        "text": {
+          "condition": {
+            "test": "datum.date === '2020-09'",
+            "value": "Peak COVID lockdown: Highest punctuality"
+          }
+        }
+      }
+    }
+  ]
 }
