@@ -1,38 +1,41 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": "container",
-    "height": "container",
-    "data": {
-      "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/delivery_punctuality_data_trimmed.csv"
-    },
-    "transform": [
-      {"calculate": "datum.punctuality - 93", "as": "divergence"}  
-    ],
-    "mark": "bar",
-    "encoding": {
-      "x": {
-        "field": "date",
-        "type": "ordinal",
-        "title": "Date",
-        "axis": {"labelAngle": -45}
-      },
-      "y": {
-        "field": "divergence",
-        "type": "quantitative",
-        "title": "Divergence from 93% Punctuality"
-      },
-      "color": {
-        "condition": {
-          "test": "datum.divergence > 0",
-          "value": "#4CAF50"  
-        },
-        "value": "#FF7043"  
-      },
-      "tooltip": [
-        {"field": "date", "type": "ordinal", "title": "Date"},
-        {"field": "punctuality", "type": "quantitative", "title": "Punctuality (%)"},
-        {"field": "divergence", "type": "quantitative", "title": "Divergence"}
-      ]
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "data": {
+    "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/delivery_punctuality_data_trimmed.csv"
+  },
+  "transform": [
+    {"calculate": "datum.punctuality - 93", "as": "divergence"}  
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "ordinal",
+      "title": "Date",
+      "axis": {
+        "labelAngle": -45,
+        "labelOverlap": "parity",  
+        "tickCount": 8
     }
+    },
+    "y": {
+      "field": "divergence",
+      "type": "quantitative",
+      "title": "Divergence from 93% Punctuality"
+    },
+    "color": {
+      "condition": {
+        "test": "datum.divergence > 0",
+        "value": "#4CAF50"  
+      },
+      "value": "#FF7043"  
+    },
+    "tooltip": [
+      {"field": "date", "type": "ordinal", "title": "Date"},
+      {"field": "punctuality", "type": "quantitative", "title": "Punctuality (%)"},
+      {"field": "divergence", "type": "quantitative", "title": "Divergence"}
+    ]
   }
-  
+}

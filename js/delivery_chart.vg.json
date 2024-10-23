@@ -1,10 +1,11 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": "container",
-    "height": "container",
-    "data": {
-      "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/delivery_punctuality_data_trimmed.csv"    },
-    "mark": "line",
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "data": {
+    "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/delivery_punctuality_data_trimmed.csv"
+  },
+  "mark": "line",
   "encoding": {
     "x": {
       "field": "date",
@@ -15,7 +16,10 @@
     "y": {
       "field": "delivery",
       "type": "quantitative",
-      "title": "Delivery (%)"
+      "title": "Delivery (%)",
+      "scale": {
+        "domain": [96, 100] 
+      }
     },
     "tooltip": [
       {"field": "date", "type": "temporal", "title": "Date"},
