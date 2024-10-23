@@ -24,9 +24,8 @@
     },
     {
       "name": "scaleValue",
-      "expr": "selectedRegion === 'Melbourne - Inner' ? 110000 : selectedRegion === 'Geelong' ? 20000 : selectedRegion === 'Ballarat' ? 8500 : selectedRegion === 'Bendigo' ? 9000 : selectedRegion === 'Hume' ? 7000 : selectedRegion === 'Latrobe - Gippsland' ? 10000 : selectedRegion === 'Melbourne - Inner East' ? 50000 : selectedRegion === 'Melbourne - Inner South' ? 50000 : selectedRegion === 'Melbourne - North East' ? 50000 : selectedRegion === 'Melbourne - North West' ? 50000 : selectedRegion === 'Melbourne - Outer East' ? 50000 : selectedRegion === 'Melbourne - South East' ? 20000 : selectedRegion === 'Melbourne - West' ? 50000 : selectedRegion === 'Mornington Peninsula' ? 30000 : selectedRegion === 'North West' ? 7000 : selectedRegion === 'Shepparton' ? 7000 : selectedRegion === 'Warrnambool and South West' ? 12000 : 5000"
+      "expr": "selectedRegion === 'Melbourne - Inner' ? 110000 : selectedRegion === 'Geelong' ? 20000 : selectedRegion === 'Ballarat' ? 8500 : selectedRegion === 'Bendigo' ? 9000 : selectedRegion === 'Hume' ? 7000 : selectedRegion === 'Latrobe - Gippsland' ? 10000 : selectedRegion === 'Melbourne - Inner East' ? 50000 : selectedRegion === 'Melbourne - Inner South' ? 50000 : selectedRegion === 'Melbourne - North East' ? 50000 : selectedRegion === 'Melbourne - North West' ? 50000 : selectedRegion === 'Melbourne - Outer East' ? 50000 : selectedRegion === 'Melbourne - South East' ? 20000 : selectedRegion === 'Melbourne - West' ? 50000 : 'Mornington Peninsula' ? 30000 : selectedRegion === 'North West' ? 7000 : selectedRegion === 'Shepparton' ? 7000 : selectedRegion === 'Warrnambool and South West' ? 12000 : 5000"
     }
-    
   ],
   "layer": [
     {
@@ -76,17 +75,32 @@
         "longitude": {"field": "Stop_long", "type": "quantitative"},
         "latitude": {"field": "Stop_lat", "type": "quantitative"},
         "color": {
-          "condition": {
-            "test": "datum.Regional == 0",
-            "value": "#E3A187"  
+          "field": "Station_Type",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Regional", "Metropolitan"],
+            "range": ["#9BC5DD", "#E3A187"]  
           },
-          "value": "#9BC5DD"
+          "legend": {
+            "title": "Station Type",
+            "orient": "top-right",
+            "fillColor": "#bbbbbb",
+            "padding": 10,
+            "strokeColor": "white"
+          }
         },
         "size": {
           "field": "Pax_annual",
           "type": "quantitative",
           "title": "Annual Passengers",
-          "scale": {"range": [50, 1000]}  
+          "scale": {"range": [50, 1000]},
+        "legend": {
+          "title": "Annual Passengers",
+          "orient": "top-right",
+          "fillColor": "#bbbbbb",
+          "padding": 10,
+          "strokeColor": "white"
+        } 
         },
         "order": {"field": "sortKey", "type": "quantitative", "sort": "descending"},  
         "tooltip": [

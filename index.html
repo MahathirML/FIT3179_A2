@@ -13,70 +13,84 @@
 <header>
   <!-- Big Title Section -->
   <h1>Victorian Train Stations Analysis</h1>
-  <p class="caption">An analysis of passenger distribution and the regional vs metropolitan station breakdown in Melbourne for FY 2023-2024.</p>
+  <p class="caption">
+    This visualization allows users to interactively explore the spatial distribution and usage of train stations in Victoria. comparing regional and metropolitan areas, while also highlighting key performance metrics and accessibility features that impact public transport users.
+  </p>
 </header>
 
   <body>
   <!-- Section Title -->
   <section id="regional-metropolitan-stations">
     <h2>Regional and Metropolitan Stations</h2>
-    
     <div id="visualization-container">
-      
-      <div class="visualization-block map-block">
-        <div class="text">
-          <h3>Annual Passenger Count for Melbourne Train Stations</h3>
-          <p style="font-style: italic;">This map shows the geographic locations of train stations in Melbourne</p>
-          <!-- Map Visualization Block -->
-          <label for="region-select">Select Region IRL: </label>
-          <select id="region-select">
-            <!-- Region Options -->
-            <option value="All">All</option>
-            <option value="Ballarat">Ballarat</option>
-            <option value="Bendigo">Bendigo</option>
-            <option value="Geelong">Geelong</option>
-            <option value="Hume">Hume</option>
-            <option value="Latrobe - Gippsland">Latrobe - Gippsland</option>
-            <option value="Melbourne - Inner">Melbourne - Inner</option>
-            <option value="Melbourne - Inner East">Melbourne - Inner East</option>
-            <option value="Melbourne - Inner South">Melbourne - Inner South</option>
-            <option value="Melbourne - North East">Melbourne - North East</option>
-            <option value="Melbourne - North West">Melbourne - North West</option>
-            <option value="Melbourne - Outer East">Melbourne - Outer East</option>
-            <option value="Melbourne - South East">Melbourne - South East</option>
-            <option value="Melbourne - West">Melbourne - West</option>
-            <option value="Mornington Peninsula">Mornington Peninsula</option>
-            <option value="North West">North West</option>
-            <option value="Shepparton">Shepparton</option>
-            <option value="Warrnambool and South West">Warrnambool and South West</option>
-          </select>
+      <div class="visualization-block map-block" style="padding-bottom: 10px;">
+        <div class="text map-text" style="padding-bottom: 10px;">
+          <h3>Passenger Activity Across Train Stations in Victoria</h3>
+          <p>There are 222 train stations across Victoria as shown by this map.</p>
+          <p>Select a region below to view the stations in that area.</p>
+          <p>Explore the geographic distribution and passenger activities of the region in the next section.</p>
+          
+          <!-- Enhanced Map Visualization Block -->
+          <div style="margin-bottom: 5px;">
+            <label for="region-select" style="font-weight: bold;">Select a Region:</label>
+          </div>
+          <div>
+            <select id="region-select" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #f5f5f5; font-size: 14px;">
+              <option value="All">All Regions</option>
+              <option value="Ballarat">Ballarat</option>
+              <option value="Bendigo">Bendigo</option>
+              <option value="Geelong">Geelong</option>
+              <option value="Hume">Hume</option>
+              <option value="Latrobe - Gippsland">Latrobe - Gippsland</option>
+              <option value="Melbourne - Inner">Melbourne - Inner</option>
+              <option value="Melbourne - Inner East">Melbourne - Inner East</option>
+              <option value="Melbourne - Inner South">Melbourne - Inner South</option>
+              <option value="Melbourne - North East">Melbourne - North East</option>
+              <option value="Melbourne - North West">Melbourne - North West</option>
+              <option value="Melbourne - Outer East">Melbourne - Outer East</option>
+              <option value="Melbourne - South East">Melbourne - South East</option>
+              <option value="Melbourne - West">Melbourne - West</option>
+              <option value="Mornington Peninsula">Mornington Peninsula</option>
+              <option value="North West">North West</option>
+              <option value="Shepparton">Shepparton</option>
+              <option value="Warrnambool and South West">Warrnambool and South West</option>
+            </select>
+          </div>
         </div>
-        <div id="symbol_map"></div>
+        
+        <!-- Visualization Block -->
+        <div id="symbol_map" class="map-symbol"></div>
       </div>
-
+      
+      
       <!-- Pie Chart, Text, and Bar Chart in the same line -->
       <div class="visualization-block combined-block">
         <div class="visualization-item">
           <div id="pie_chart"></div>
           <div class="text">
             <h3>Regional vs Metropolitan Stations in Melbourne</h3>
-            <p style="font-style: italic;">The pie chart highlights the distribution of regional and metropolitan train stations in Melbourne.</p>
+            <p style="font-style: italic;">The pie chart highlights the distribution of regional and metropolitan train stations in the selected region.</p>
           </div>
         </div>
 
         <div class="middle-text">
-          <p><strong>Analysis:</strong> Regional stations cater to the majority of the population outside Melbourne, while metropolitan stations handle the bulk of the city's daily commuters.</p>
+          <p>Regional stations cater to the majority of the population outside Melbourne, while metropolitan stations handle the bulk of the city's daily commuters.</p>
         </div>
 
         <div class="visualization-item">
           <div id="bar_chart"></div>
           <div class="text">
             <h3>Most Used Stations in Melbourne</h3>
-            <p style="font-style: italic;">The bar chart shows the top 10 most used train stations in Melbourne.</p>
+            <p style="font-style: italic;">The bar chart shows the most used train stations in the selected region.</p>
           </div>
         </div>
       </div>
 
+      
+
+    <!-- New 3 Bar Charts Side by Side -->
+    <section id="station-facilities">
+      <h2>Station Accessibilty Facilities</h2>
       <!-- New 3-item Block for Highlights -->
       <div class="visualization-block highlight-block">
         <div class="highlight-item">
@@ -84,20 +98,18 @@
           <p class="highlight-text">of residences meet this target</p>
         </div>
         <div class="highlight-item middle-text">
-          <p>The Victorian Planning Provisions require <strong>95%</strong> of Melbourne residences to be within 400 m walking distance of a bus stop, 600 m of a tram stop, or 800 m of a train station.</p>
+          <p>The Victorian Planning Provisions require <strong style="color: #E3A187;">95%</strong> of Melbourne residences to be within 400 m walking distance of a bus stop, 600 m of a tram stop, or 800 m of a train station. <strong style="color: #E3A187;">How accessible are these stations, though?</strong></p>
         </div>
+        
         <div class="highlight-item">
           <p class="highlight-percentage">14%</p>
           <p class="highlight-text">of suburbs meet this target.</p>
         </div>
       </div>
-
-    <!-- New 3 Bar Charts Side by Side -->
-    <section id="station-facilities">
-      <h2>Station Facilities: Lifts, Hearing Aids, and PIDS</h2>
+      
       <!-- Three bar charts side by side -->
       <div class="visualization-block combined-block">
-        <div class="visualization-item">
+        <div class="visualization-item visualization-item-third">
           <div id="lift_chart"></div>
           <div class="text">
             <h3>Lifts Availability</h3>
@@ -105,7 +117,7 @@
           </div>
         </div>
 
-        <div class="visualization-item">
+        <div class="visualization-item visualization-item-third">
           <div id="hearing_aid_chart"></div>
           <div class="text">
             <h3>Hearing Loop Availability</h3>
@@ -113,7 +125,7 @@
           </div>
         </div>
 
-        <div class="visualization-item">
+        <div class="visualization-item visualization-item-third">
           <div id="pids_chart"></div>
           <div class="text">
             <h3>PIDS Types (Passenger Information Display Systems)</h3>
