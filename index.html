@@ -190,19 +190,19 @@
   <script type="text/javascript">
     // Function to update visualizations with the selected region
     function updateVisualizations(region) {
-      var mapSpec = "js/ps_map.vg.json";
+      var mapSpec = "vega/ps_map.vg.json";
       vegaEmbed('#symbol_map', mapSpec, { actions: false, renderer: 'svg' })
         .then(function(result) {
           result.view.signal('selectedRegion', region).run();
         }).catch(console.error);
   
-      var pieSpec = "js/pie_chart.vg.json";
+      var pieSpec = "vega/pie_chart.vg.json";
       vegaEmbed('#pie_chart', pieSpec, { actions: false, renderer: 'svg' })
         .then(function(result) {
           result.view.signal('selectedRegion', region).run();
         }).catch(console.error);
 
-      var barSpec = "js/bar_chart.vg.json";
+      var barSpec = "vega/bar_chart.vg.json";
       vegaEmbed('#bar_chart', barSpec, { actions: false, renderer: 'svg' })
         .then(function(result) {
           result.view.signal('selectedRegion', region).run();
@@ -216,75 +216,313 @@
       updateVisualizations(regionSelect.value);
     });
   
-    // Lift Chart
+// Lift Chart with disappointment annotation
 var liftChartSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
-  "mark": "bar",
-  "encoding": {
-    "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
-    "color": {
-      "field": "lift", 
-      "type": "nominal",
-      "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]}  // Custom color scheme
+  "data": {
+    "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"
+  },
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "lift",
+          "type": "nominal",
+          "axis": {"title": "Lift Availability"}
+        },
+        "y": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative",
+          "title": "Number of Stations"
+        },
+        "color": {
+          "field": "lift",
+          "type": "nominal",
+          "scale": {"range": ["#E3A187", "#9BC5DD"]},
+          "legend": {"title": "Lift Availability"}
+        },
+        "tooltip": [
+          {"field": "lift", "title": "Lift Availability"},
+          {"aggregate": "count", "field": "station", "title": "Number of Stations"}
+        ]
+      }
     },
-    "tooltip": [
-      {"field": "lift", "title": "Lift Availability"},
-      {"aggregate": "count", "field": "station", "title": "Number of Stations"}
-    ]
-  }
+    // Annotations for counts
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -5,
+        "color": "#8B0000"
+      },
+      "encoding": {
+        "x": {"field": "lift", "type": "nominal"},
+        "y": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative"
+        },
+        "text": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "dy": -100,
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "#8B0000"
+      },
+      "encoding": {
+        "x": {"datum": "No", "type": "nominal"},
+        "y": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "text": {"value": "Too many stations lack lifts!"}
+      }
+    },
+    // Arrow pointing to 'No' bar
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#8B0000",
+        "strokeWidth": 2,
+        "strokeDash": [4,2]
+        
+      },
+      "encoding": {
+        "x": {"datum": "No", "type": "nominal"},
+        "y": {"datum": 0},
+        "y2": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative",
+          "filter": "datum.lift === 'No'"
+        }
+      }
+    }
+  ]
 };
 vegaEmbed('#lift_chart', liftChartSpec, { actions: false }).catch(console.error);
 
-// Hearing Aid Chart
+// Hearing Aid Chart with disappointment annotation
 var hearingAidChartSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
-  "mark": "bar",
-  "encoding": {
-    "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
-    "color": {
-      "field": "he_loop", 
-      "type": "nominal",
-      "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]}  // Custom color scheme
+  "data": {
+    "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"
+  },
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "he_loop",
+          "type": "nominal",
+          "axis": {"title": "Hearing Loop Availability"}
+        },
+        "y": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative",
+          "title": "Number of Stations"
+        },
+        "color": {
+          "field": "he_loop",
+          "type": "nominal",
+          "scale": {"range": ["#E3A187", "#9BC5DD"]},
+          "legend": {"title": "Hearing Loop Availability"}
+        },
+        "tooltip": [
+          {"field": "he_loop", "title": "Hearing Loop Availability"},
+          {"aggregate": "count", "field": "station", "title": "Number of Stations"}
+        ]
+      }
     },
-    "tooltip": [
-      {"field": "he_loop", "title": "Hearing Loop Availability"},
-      {"aggregate": "count", "field": "station", "title": "Number of Stations"}
-    ]
-  }
+    // Annotations for counts
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -5,
+        "color": "#8B0000"
+      },
+      "encoding": {
+        "x": {"field": "he_loop", "type": "nominal"},
+        "y": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative"
+        },
+        "text": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "dy": -100,
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "#8B0000"
+      },
+      "encoding": {
+        "x": {"datum": "No", "type": "nominal"},
+        "y": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "text": {"value": "Hearing loops are missing in many stations!"}
+      }
+    },
+    // Arrow pointing to 'No' bar
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#8B0000",
+        "strokeWidth": 2,
+        "strokeDash": [4,2]
+      },
+      "encoding": {
+        "x": {"datum": "No", "type": "nominal"},
+        "y": {"datum": 0},
+        "y2": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative",
+          "filter": "datum.he_loop === 'No'"
+        }
+      }
+    }
+  ]
 };
 vegaEmbed('#hearing_aid_chart', hearingAidChartSpec, { actions: false }).catch(console.error);
 
-// PIDS Chart
+// PIDS Chart with disappointment annotation
 var pidsChartSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
-  "mark": {
-    "type": "bar",
-    "cornerRadiusEnd": 2,  // Rounds the corners of the bars
-    "width": {"band": 0.8} // Adjusts the width of the bars to add space
+  "data": {
+    "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"
   },
-  "encoding": {
-    "x": {"field": "pids", "type": "nominal", "title": "PIDS Type"},
-    "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
-    "color": {
-      "field": "pids", 
-      "type": "nominal",
-      "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]},
-      "legend": null  // Removes the legend
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 2,
+        "width": {"band": 0.8}
+      },
+      "encoding": {
+        "x": {
+          "field": "pids",
+          "type": "nominal",
+          "axis": {"title": "PIDS Type"}
+        },
+        "y": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative",
+          "title": "Number of Stations"
+        },
+        "color": {
+          "field": "pids",
+          "type": "nominal",
+          "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]},
+          "legend": {"title": "PIDS Type"}
+        },
+        "tooltip": [
+          {"field": "pids", "title": "PIDS Type"},
+          {"aggregate": "count", "field": "station", "title": "Number of Stations"}
+        ]
+      }
     },
-    "tooltip": [
-      {"field": "pids", "title": "PIDS Type"},
-      {"aggregate": "count", "field": "station", "title": "Number of Stations"}
-    ]
-  }
+    // Annotations for counts
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -5,
+        "color": "#8B0000"
+      },
+      "encoding": {
+        "x": {"field": "pids", "type": "nominal"},
+        "y": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative"
+        },
+        "text": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "dy": -100,
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "#8B0000"
+      },
+      "encoding": {
+        "x": {"datum": "Dot Matrix", "type": "nominal"},
+        "y": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "text": {"value": "Dot matrix displays are outdated!"}
+      }
+    },
+    // Arrow pointing to 'Dot Matrix' bar
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#8B0000",
+        "strokeWidth": 2,
+        "strokeDash": [4,2]
+      },
+      "encoding": {
+        "x": {"datum": "Dot Matrix", "type": "nominal"},
+        "y": {"datum": 0},
+        "y2": {
+          "aggregate": "count",
+          "field": "station",
+          "type": "quantitative",
+          "filter": "datum.pids === 'Dot Matrix'"
+        }
+      }
+    }
+  ]
 };
 vegaEmbed('#pids_chart', pidsChartSpec, { actions: false }).catch(console.error);
 
-    vegaEmbed('#delivery_chart', 'js/delivery_chart.vg.json', { actions: false }).catch(console.error);
 
-    vegaEmbed('#punctuality_chart', 'js/punctuality_chart.vg.json', { actions: false }).catch(console.error);
+
+    vegaEmbed('#delivery_chart', 'vega/delivery_chart.vg.json', { actions: false }).catch(console.error);
+
+    vegaEmbed('#punctuality_chart', 'vega/punctuality_chart.vg.json', { actions: false }).catch(console.error);
   </script>
 </body>
 </html>
