@@ -1,0 +1,98 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"
+    },
+    "layer": [
+      {
+        "mark": {
+          "type": "bar",
+          "cornerRadiusEnd": 2,
+          "width": {"band": 0.8}
+        },
+        "encoding": {
+          "x": {
+            "field": "pids",
+            "type": "nominal",
+            "axis": {"title": "PIDS Type"}
+          },
+          "y": {
+            "aggregate": "count",
+            "field": "station",
+            "type": "quantitative",
+            "title": "Number of Stations"
+          },
+          "color": {
+            "field": "pids",
+            "type": "nominal",
+            "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]},
+            "legend": {"title": "PIDS Type"}
+          },
+          "tooltip": [
+            {"field": "pids", "title": "PIDS Type"},
+            {"aggregate": "count", "field": "station", "title": "Number of Stations"}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "center",
+          "baseline": "bottom",
+          "dy": -5,
+          "color": "#8B0000"
+        },
+        "encoding": {
+          "x": {"field": "pids", "type": "nominal"},
+          "y": {
+            "aggregate": "count",
+            "field": "station",
+            "type": "quantitative"
+          },
+          "text": {
+            "aggregate": "count",
+            "field": "station",
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "dx": 10,
+          "dy": -100,
+          "fontSize": 12,
+          "fontStyle": "italic",
+          "color": "#8B0000"
+        },
+        "encoding": {
+          "x": {"datum": "Dot Matrix", "type": "nominal"},
+          "y": {
+            "datum": 0,
+            "type": "quantitative"
+          },
+          "text": {"value": "Dot matrix displays are outdated!"}
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "#8B0000",
+          "strokeWidth": 2,
+          "strokeDash": [4, 2]
+        },
+        "encoding": {
+          "x": {"datum": "Dot Matrix", "type": "nominal"},
+          "y": {"datum": 0},
+          "y2": {
+            "aggregate": "count",
+            "field": "station",
+            "type": "quantitative",
+            "filter": "datum.pids === 'Dot Matrix'"
+          }
+        }
+      }
+    ]
+  }
+  
