@@ -12,7 +12,7 @@
     "center": {"expr": "selectedRegion === 'All' ? [144.9671, -37.8183] : centerValue"}
   },
   "config": {
-    "background": "lightgray"
+    "background": "white"
   },
   "params": [
     {

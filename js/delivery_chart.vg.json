@@ -5,26 +5,66 @@
   "data": {
     "url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/delivery_punctuality_data_trimmed.csv"
   },
-  "mark": "line",
-  "encoding": {
-    "x": {
-      "field": "date",
-      "type": "temporal", 
-      "title": "Date",
-      "axis": {"labelAngle": -45}
-    },
-    "y": {
-      "field": "delivery",
-      "type": "quantitative",
-      "title": "Delivery (%)",
-      "scale": {
-        "domain": [96, 100] 
+  "layer": [
+    {
+      "mark": "line",
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal", 
+          "title": "Date",
+          "axis": {"labelAngle": -45}
+        },
+        "y": {
+          "field": "delivery",
+          "type": "quantitative",
+          "title": "Delivery (%)",
+          "scale": {
+            "domain": [96, 100]
+          }
+        },
+        "tooltip": [
+          {"field": "date", "type": "temporal", "title": "Date"},
+          {"field": "delivery", "type": "quantitative", "title": "Delivery (%)"}
+        ],
+        "color": {"value": "#9BC5DD"}
       }
     },
-    "tooltip": [
-      {"field": "date", "type": "temporal", "title": "Date"},
-      {"field": "delivery", "type": "quantitative", "title": "Delivery (%)"}
-    ],
-    "color": {"value": "#4CAF50"}  
-  }
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "dy": -5,
+        "fontWeight": "normal",
+        "color": "#981010",   
+        "backgroundColor": "#E3A187",  
+        "radius": 5,
+        "padding": 5
+      },
+      "encoding": {
+        "x": {"datum": "2020-09", "type": "temporal"},
+        "y": {"datum": 99.5},
+        "text": {"value": "Highest delivery rate during peak COVID lockdown"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 50,
+        "dy": -5,
+        "fontWeight": "normal",
+        "color": "#981010",   
+        "backgroundColor": "#E3A187",  
+        "radius": 5,
+        "padding": 5
+      },
+      "encoding": {
+        "x": {"datum": "2021-02", "type": "temporal"},
+        "y": {"datum": 96.5},
+        "text": {"value": "Lowest delivery rate during post-COVID adjustment"}
+      }
+    }
+  ]
 }

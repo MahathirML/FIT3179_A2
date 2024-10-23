@@ -26,8 +26,7 @@
       <div class="visualization-block map-block" style="padding-bottom: 10px;">
         <div class="text map-text" style="padding-bottom: 10px;">
           <h3>Passenger Activity Across Train Stations in Victoria</h3>
-          <p>There are 222 train stations across Victoria as shown by this map.</p>
-          <p>Select a region below to view the stations in that area.</p>
+          <p>There are 222 train stations across Victoria as shown by this map. You can select a region below to view the stations in that area</p>
           <p>Explore the geographic distribution and passenger activities of the region in the next section.</p>
           
           <!-- Enhanced Map Visualization Block -->
@@ -74,7 +73,16 @@
         </div>
 
         <div class="middle-text">
-          <p>Regional stations cater to the majority of the population outside Melbourne, while metropolitan stations handle the bulk of the city's daily commuters.</p>
+          <p>
+            Regional stations cater to the majority of the population outside Melbourne, while metropolitan stations handle the bulk of the city's daily commuters.
+            <br><br>
+            We can see that some regional stations have much higher patronage counts than others, generally due to them being central hubs. Similarly, some end-of-the-line stations experience high passenger volumes. For example, Glen Waverley Station has a notably high count, and interchanges like Richmond are very popular.
+            <br><br>
+            Flinders Street Station sees over <span style="color: #E3A187;"><strong>20 million</strong></span> passengers annually, making it the most used station in Melbourne.
+            <br><br>
+            Of course, the City Loop remains the most popular, as Melbourne City is the heart of Victoria's transport system.
+          </p>
+          
         </div>
 
         <div class="visualization-item">
@@ -106,7 +114,7 @@
           <p class="highlight-text">of suburbs meet this target.</p>
         </div>
       </div>
-      
+
       <!-- Three bar charts side by side -->
       <div class="visualization-block combined-block">
         <div class="visualization-item visualization-item-third">
@@ -128,7 +136,7 @@
         <div class="visualization-item visualization-item-third">
           <div id="pids_chart"></div>
           <div class="text">
-            <h3>PIDS Types (Passenger Information Display Systems)</h3>
+            <h3>Passenger Information Display Systems Availability</h3>
             <p style="font-style: italic;">This bar chart categorizes the types of Passenger Information Display Systems (PIDS) across the stations.</p>
           </div>
         </div>
@@ -136,34 +144,45 @@
     </section>
 
     <!-- Three Item Block (Delivery Chart, Text, Punctuality Chart) -->
-    <section id="performance-metrics">
-      <h2>Performance Metrics: Delivery and Punctuality</h2>
+<section id="performance-metrics">
+  <h2>Performance Metrics: Delivery and Punctuality</h2>
 
-      <div class="visualization-block combined-block">
-        <!-- Delivery Chart -->
-        <div class="visualization-item">
-          <div id="delivery_chart"></div>
-          <div class="text">
-            <h3>Delivery Performance Over Time</h3>
-            <p style="font-style: italic;">This chart shows delivery performance trends over time.</p>
-          </div>
-        </div>
-
-        <!-- Middle Text Section -->
-        <div class="middle-text">
-          <p><strong>Analysis:</strong> Delivery and punctuality metrics are critical indicators of service quality. Monitoring trends over time helps to maintain and improve standards.</p>
-        </div>
-
-        <!-- Punctuality Diverging Bar Chart -->
-        <div class="visualization-item">
-          <div id="punctuality_chart"></div>
-          <div class="text">
-            <h3>Punctuality Divergence Over Time</h3>
-            <p style="font-style: italic;">This chart visualizes how punctuality performance deviates from the target over time.</p>
-          </div>
-        </div>
+  <div class="visualization-block combined-block">
+    <!-- Delivery Chart -->
+    <div class="visualization-item">
+      <div id="delivery_chart"></div>
+      <div class="text">
+        <h3>Delivery Performance Over Time</h3>
+        <p style="font-style: italic;">This chart shows delivery performance trends over time.</p>
       </div>
-    </section>
+    </div>
+
+    <!-- Middle Text Section -->
+    <div class="middle-text">
+      <p>
+        Metro spends <span style="color: #E3A187;"><strong>$12 million</strong></span> per week on public transport, so we deserve nothing less than top-tier performance.
+        <br><br>
+        Delivery and punctuality metrics are critical indicators of service quality. Monitoring trends over time helps to maintain and improve standards. 
+        <br><br>
+        <strong>Key Takeaways:</strong>
+        <br>
+        1. Significant improvements in punctuality during peak times like COVID lockdowns.
+        <br>
+        2. Notable dips during periods of operational adjustment, such as post-lockdown recovery.
+      </p>
+    </div>
+
+    <!-- Punctuality Diverging Bar Chart -->
+    <div class="visualization-item">
+      <div id="punctuality_chart"></div>
+      <div class="text">
+        <h3>Punctuality Divergence Over Time</h3>
+        <p style="font-style: italic;">This chart visualizes how punctuality performance deviates from the target over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
   </div>
 </section>
 
@@ -197,51 +216,71 @@
       updateVisualizations(regionSelect.value);
     });
   
-    // Lift, Hearing Aid, and PIDS charts
-    var liftChartSpec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
-      "mark": "bar",
-      "encoding": {
-        "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
-        "color": {"field": "lift", "type": "nominal"},
-        "tooltip": [
-          {"field": "lift", "title": "Lift Availability"},
-          {"aggregate": "count", "field": "station", "title": "Number of Stations"}
-        ]
-      }
-    };
-    vegaEmbed('#lift_chart', liftChartSpec, { actions: false }).catch(console.error);
+    // Lift Chart
+var liftChartSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
+  "mark": "bar",
+  "encoding": {
+    "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
+    "color": {
+      "field": "lift", 
+      "type": "nominal",
+      "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]}  // Custom color scheme
+    },
+    "tooltip": [
+      {"field": "lift", "title": "Lift Availability"},
+      {"aggregate": "count", "field": "station", "title": "Number of Stations"}
+    ]
+  }
+};
+vegaEmbed('#lift_chart', liftChartSpec, { actions: false }).catch(console.error);
 
-    var hearingAidChartSpec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
-      "mark": "bar",
-      "encoding": {
-        "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
-        "color": {"field": "he_loop", "type": "nominal"},
-        "tooltip": [
-          {"field": "he_loop", "title": "Hearing Loop Availability"},
-          {"aggregate": "count", "field": "station", "title": "Number of Stations"}
-        ]
-      }
-    };
-    vegaEmbed('#hearing_aid_chart', hearingAidChartSpec, { actions: false }).catch(console.error);
+// Hearing Aid Chart
+var hearingAidChartSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
+  "mark": "bar",
+  "encoding": {
+    "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
+    "color": {
+      "field": "he_loop", 
+      "type": "nominal",
+      "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]}  // Custom color scheme
+    },
+    "tooltip": [
+      {"field": "he_loop", "title": "Hearing Loop Availability"},
+      {"aggregate": "count", "field": "station", "title": "Number of Stations"}
+    ]
+  }
+};
+vegaEmbed('#hearing_aid_chart', hearingAidChartSpec, { actions: false }).catch(console.error);
 
-    var pidsChartSpec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
-      "mark": "bar",
-      "encoding": {
-        "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
-        "color": {"field": "pids", "type": "nominal"},
-        "tooltip": [
-          {"field": "pids", "title": "PIDS Type"},
-          {"aggregate": "count", "field": "station", "title": "Number of Stations"}
-        ]
-      }
-    };
-    vegaEmbed('#pids_chart', pidsChartSpec, { actions: false }).catch(console.error);
+// PIDS Chart
+var pidsChartSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/MahathirML/FIT3179_A2/refs/heads/main/data/accessibility_data.csv"},
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 2,  // Rounds the corners of the bars
+    "width": {"band": 0.8} // Adjusts the width of the bars to add space
+  },
+  "encoding": {
+    "x": {"field": "pids", "type": "nominal", "title": "PIDS Type"},
+    "y": {"aggregate": "count", "field": "station", "type": "quantitative", "title": "Number of Stations"},
+    "color": {
+      "field": "pids", 
+      "type": "nominal",
+      "scale": {"range": ["#E3A187", "#9BC5DD", "#f7c6c7"]},
+      "legend": null  // Removes the legend
+    },
+    "tooltip": [
+      {"field": "pids", "title": "PIDS Type"},
+      {"aggregate": "count", "field": "station", "title": "Number of Stations"}
+    ]
+  }
+};
+vegaEmbed('#pids_chart', pidsChartSpec, { actions: false }).catch(console.error);
 
     vegaEmbed('#delivery_chart', 'js/delivery_chart.vg.json', { actions: false }).catch(console.error);
 

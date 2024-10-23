@@ -30,9 +30,9 @@
         "color": {
           "condition": {
             "test": "datum.divergence > 0",
-            "value": "#4CAF50"
+            "value": "#9BC5DD"  
           },
-          "value": "#FF7043"
+          "value": "#E3A187"  
         },
         "tooltip": [
           {"field": "date", "type": "ordinal", "title": "Month"},
@@ -42,7 +42,7 @@
       }
     },
     {
-      "mark": {"type": "rule", "color": "#E3A187", "strokeWidth": 2},
+      "mark": {"type": "rule", "color": "#981010", "strokeWidth": 2}, 
       "encoding": {
         "x": {"field": "date", "type": "ordinal"},
         "y": {"field": "divergence", "type": "quantitative"},
@@ -59,8 +59,8 @@
         "dx": 5,
         "dy": -5,
         "fontWeight": "bold",
-        "color": "#333",
-        "backgroundColor": "#E3A187",
+        "color": "#981010",   
+        "backgroundColor": "#E3A187",  
         "radius": 5,
         "padding": 5
       },

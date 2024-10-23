@@ -22,11 +22,13 @@
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	transition: transform 0.2s ease;
-}
-
-.visualization-block:hover {
+	margin-bottom: 40px; /* Add margin-bottom to create space between blocks */
+  }
+  
+  .visualization-block:hover {
 	transform: translateY(-10px);
-}
+  }
+  
 
 /* Unified block for pie chart, middle text, and bar chart */
 .unified-block {
@@ -69,9 +71,10 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	max-width: 1200px;
 	width: 100%;
+	padding: 20px;
 	background-color: #f1f1f1;
-	padding: 30px;
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -164,12 +167,6 @@ h2 {
 	margin-bottom: 40px;
 }
 
-p {
-	font-family: 'Roboto', sans-serif;
-	font-size: 1em;
-	color: #34495e;
-}
-
 .caption {
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.2em;
@@ -179,10 +176,8 @@ p {
 	max-width: 600px;        /* Limit the width of the text */
 	margin-left: auto;       /* Center horizontally */
 	margin-right: auto;      /* Center horizontally */
-	padding: 10px;           /* Add padding around the text */
-  }
-  
-  
+	padding: 10px;   
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
