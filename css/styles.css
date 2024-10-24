@@ -178,6 +178,39 @@ h2 {
 	margin-right: auto;      /* Center horizontally */
 	padding: 10px;   
 }
+footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+footer ul li {
+    margin: 5px 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
